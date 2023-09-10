@@ -1,0 +1,24 @@
+// Reference: https://github.com/tsconfig/bases/blob/main/bases/recommended.json
+{
+  "compilerOptions": {
+    // Modules
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    },
+    // Environment
+    "target": "ES2022",
+    // Type Checking
+    "strict": true,
+    // Emit
+    "sourceMap": true,
+    "outDir": "dist",
+    // Others
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"]
+}

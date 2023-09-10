@@ -1,0 +1,60 @@
+# Only used for development
+
+services:
+  api:
+    container_name: polyaux-api
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      # Not localhost within the container
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/postgres
+    volumes:
+      - .:/usr/src/app # Bind mount: https://docs.docker.com/storage/bind-mounts/
+      - node_modules:/usr/src/app/node_modules # Volume mount: https://docs.docker.com/storage/volumes/
+    # Wait for postgres service to be ready
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    container_name: polyaux-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password # Required by postgres image
+      POSTGRES_USER: postgres
+    ports:
+      - 5432:5432
+    # Create a persistent volume within the container
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    # Only start dependent services once postgres is ready
+    # Reference: https://github.com/peter-evans/docker-compose-healthcheck
+    healthcheck: 
+      test: ["CMD-SHELL", "pg_isready --username=postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    container_name: polyaux-pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - 5050:80
+    # Create a persistent volume within the container
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    # Wait for postgres service to be ready
+    depends_on: 
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres:
+  pgadmin:
+  node_modules:
