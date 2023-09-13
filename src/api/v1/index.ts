@@ -1,7 +1,7 @@
-import express from "express";
+import { Router } from "express";
 import usersRouter from "./users";
 
-const v1Router = express.Router();
+const v1Router = Router();
 
 v1Router.use("/users", usersRouter);
 
