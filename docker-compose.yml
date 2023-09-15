@@ -8,7 +8,7 @@ services:
       - ${PORT}:${PORT}
     environment:
       # Not localhost within the container
-      DATABASE_URL: postgresql://postgres:password@postgres:5432/postgres
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/polyaux
     volumes:
       - .:/usr/src/app # Bind mount: https://docs.docker.com/storage/bind-mounts/
       - node_modules:/usr/src/app/node_modules # Volume mount: https://docs.docker.com/storage/volumes/

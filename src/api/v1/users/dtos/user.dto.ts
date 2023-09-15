@@ -1,4 +1,4 @@
-export type UserDTO = {
+type UserDTO = {
   id: string;
   username: string;
   email: string;
@@ -6,3 +6,5 @@ export type UserDTO = {
   createdAt: string;
   updatedAt: string;
 };
+
+export default UserDTO;

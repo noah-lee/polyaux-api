@@ -1,8 +1,6 @@
 import { UserCreateDTO } from "@/api/v1/users/dtos/userCreate";
-import { UserDTO } from "@/api/v1/users/dtos/user.dto";
+import UserDTO from "@/api/v1/users/dtos/user.dto";
 import sql from "@/config/postgres";
-
-const USER_COLUMNS = ["id", "username", "email", "created_at", "updated_at"];
 
 class UsersRepository {
   insertUser = async (payload: UserCreateDTO) => {
@@ -23,6 +21,19 @@ class UsersRepository {
       const [user]: [UserDTO?] = await sql`
       SELECT * FROM users
       WHERE email = ${email}
+      `;
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  getUserById = async (id: string) => {
+    try {
+      const [user]: [UserDTO?] = await sql`
+      SELECT * FROM users
+      WHERE id = ${id}
       `;
 
       return user;
