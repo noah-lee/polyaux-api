@@ -1,9 +1,9 @@
 import sql from "@/config/postgres";
-import { RegisterDTO } from "@/api/v1/auth/dtos/register.dto";
+import { RegisterRequestDTO } from "@/api/v1/auth/dtos/register.dto";
 import { UserDTO } from "@/api/v1/users/dtos/user.dto";
 
 class UsersRepository {
-  insertUser = async (payload: RegisterDTO) => {
+  insertUser = async (payload: RegisterRequestDTO) => {
     try {
       const [user]: [UserDTO] = await sql`
       INSERT INTO users ${sql(payload, "username", "email", "password")} 

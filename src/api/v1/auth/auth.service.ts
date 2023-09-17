@@ -1,12 +1,12 @@
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import UsersRepository from "@/api/v1/users/users.repository";
-import { RegisterDTO } from "@/api/v1/auth/dtos/register.dto";
-import { LoginDTO } from "@/api/v1/auth/dtos/login.dto";
+import { RegisterRequestDTO } from "@/api/v1/auth/dtos/register.dto";
+import { LoginRequestDTO } from "@/api/v1/auth/dtos/login.dto";
 import { generateAccessToken } from "@/utils/jwt";
 
 class AuthService {
-  register = async (payload: RegisterDTO) => {
+  register = async (payload: RegisterRequestDTO) => {
     const { username, email, password } = payload;
 
     try {
@@ -26,7 +26,7 @@ class AuthService {
     }
   };
 
-  login = async (payload: LoginDTO) => {
+  login = async (payload: LoginRequestDTO) => {
     const { email, password } = payload;
 
     try {

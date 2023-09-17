@@ -1,8 +1,8 @@
 import z from "zod";
 
-export const LoginDTO = z.strictObject({
+export const LoginRequestSchema = z.strictObject({
   email: z.string(),
   password: z.string(),
 });
 
-export type LoginDTO = z.infer<typeof LoginDTO>;
+export type LoginRequestDTO = z.infer<typeof LoginRequestSchema>;

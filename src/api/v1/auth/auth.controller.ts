@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import AuthService from "@/api/v1/auth/auth.service";
-import { RegisterDTO } from "@/api/v1/auth/dtos/register.dto";
-import { LoginDTO } from "@/api/v1/auth/dtos/login.dto";
+import { RegisterRequestDTO } from "@/api/v1/auth/dtos/register.dto";
+import { LoginRequestDTO } from "@/api/v1/auth/dtos/login.dto";
 
 class AuthController {
   register = async (
-    req: Request<{}, {}, RegisterDTO>,
+    req: Request<{}, {}, RegisterRequestDTO>,
     res: Response,
     next: NextFunction
   ) => {
@@ -18,7 +18,7 @@ class AuthController {
   };
 
   login = async (
-    req: Request<{}, {}, LoginDTO>,
+    req: Request<{}, {}, LoginRequestDTO>,
     res: Response,
     next: NextFunction
   ) => {

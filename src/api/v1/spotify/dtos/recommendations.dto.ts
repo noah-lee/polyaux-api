@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const TrackRecommendationsQueryDTO = z
+export const RecommendationsQuerySchema = z
   .strictObject({
     seed_artists: z.string().optional(),
     seed_genres: z.string().optional(),
@@ -29,6 +29,6 @@ export const TrackRecommendationsQueryDTO = z
     }
   );
 
-export type TrackRecommendationsQueryDTO = z.infer<
-  typeof TrackRecommendationsQueryDTO
+export type RecommendationsQueryDTO = z.infer<
+  typeof RecommendationsQuerySchema
 >;

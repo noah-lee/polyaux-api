@@ -1,33 +1,31 @@
 import { Request, Response, NextFunction } from "express";
-import z, { ZodTypeAny } from "zod";
+import z, { AnyZodObject, ZodEffects } from "zod";
 
 type Schemas = {
-  body?: ZodTypeAny;
-  query?: ZodTypeAny;
-  params?: ZodTypeAny;
+  body?: AnyZodObject | ZodEffects<AnyZodObject>;
+  query?: AnyZodObject | ZodEffects<AnyZodObject>;
 };
 
 const validator =
-  (schemas: Schemas) =>
-  async (req: Request, res: Response, next: NextFunction) => {
-    const {
-      body = z.strictObject({}),
-      query = z.strictObject({}),
-      params = z.strictObject({}),
-    } = schemas;
-
+  ({ body = z.strictObject({}), query = z.strictObject({}) }: Schemas) =>
+  async (
+    req: Request<any, any, z.infer<typeof body>, z.infer<typeof query>>,
+    res: Response,
+    next: NextFunction
+  ) => {
     const combinedSchema = z.object({
       body,
       query,
-      params,
     });
 
     try {
-      await combinedSchema.parseAsync({
+      const parsed = await combinedSchema.parseAsync({
         body: req.body,
         query: req.query,
-        params: req.params,
       });
+
+      req.body = parsed.body;
+      req.query = parsed.query;
 
       return next();
     } catch (error) {
