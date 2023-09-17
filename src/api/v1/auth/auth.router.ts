@@ -1,21 +1,17 @@
-import AuthController from "@/api/v1/auth/auth.controller";
-import { UserCreateDTO } from "@/api/v1/users/dtos/userCreate";
-import { UserLoginDTO } from "@/api/v1/users/dtos/userLogin";
-import validator from "@/middlewares/validator";
 import { Router } from "express";
+import AuthController from "@/api/v1/auth/auth.controller";
+import validator from "@/middlewares/validator";
+import { RegisterDTO } from "@/api/v1/auth/dtos/register.dto";
+import { LoginDTO } from "@/api/v1/auth/dtos/login.dto";
 
 const authRouter = Router();
 
 authRouter.post(
   "/register",
-  validator({ body: UserCreateDTO }),
+  validator({ body: RegisterDTO }),
   AuthController.register
 );
 
-authRouter.post(
-  "/login",
-  validator({ body: UserLoginDTO }),
-  AuthController.login
-);
+authRouter.post("/login", validator({ body: LoginDTO }), AuthController.login);
 
 export default authRouter;

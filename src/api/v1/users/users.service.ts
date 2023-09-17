@@ -1,6 +1,6 @@
 import "dotenv/config";
 import UsersRepository from "@/api/v1/users/users.repository";
-import UserProfileDTO from "@/api/v1/users/dtos/userProfile.dto";
+import { UserProfileDTO } from "@/api/v1/users/dtos/userProfile.dto";
 
 class UsersService {
   getProfile = async (id: string) => {

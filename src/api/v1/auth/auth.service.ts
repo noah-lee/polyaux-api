@@ -1,12 +1,12 @@
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import UsersRepository from "@/api/v1/users/users.repository";
-import { generateAccessToken } from "@/api/v1/auth/auth.helper";
-import { UserCreateDTO } from "@/api/v1/users/dtos/userCreate";
-import { UserLoginDTO } from "@/api/v1/users/dtos/userLogin";
+import { RegisterDTO } from "@/api/v1/auth/dtos/register.dto";
+import { LoginDTO } from "@/api/v1/auth/dtos/login.dto";
+import { generateAccessToken } from "@/utils/jwt";
 
 class AuthService {
-  register = async (payload: UserCreateDTO) => {
+  register = async (payload: RegisterDTO) => {
     const { username, email, password } = payload;
 
     try {
@@ -26,20 +26,20 @@ class AuthService {
     }
   };
 
-  login = async (payload: UserLoginDTO) => {
+  login = async (payload: LoginDTO) => {
     const { email, password } = payload;
 
     try {
       const user = await UsersRepository.getUserByEmail(email);
 
       if (!user) {
-        throw new Error("Email not found");
+        throw new Error();
       }
 
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (!passwordMatch) {
-        throw new Error("Incorrect password");
+        throw new Error();
       }
 
       const accessToken = generateAccessToken({ sub: user.id });

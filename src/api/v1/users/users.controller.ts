@@ -10,7 +10,7 @@ class UsersController {
         throw new Error();
       }
 
-      const userProfile = UsersService.getProfile(id);
+      const userProfile = await UsersService.getProfile(id);
 
       res.status(200).json(userProfile);
     } catch (error) {

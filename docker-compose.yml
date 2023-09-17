@@ -3,7 +3,9 @@
 services:
   api:
     container_name: polyaux-api
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - ${PORT}:${PORT}
     environment:
@@ -24,6 +26,7 @@ services:
     environment:
       POSTGRES_PASSWORD: password # Required by postgres image
       POSTGRES_USER: postgres
+      POSTGRES_DB: polyaux
     ports:
       - 5432:5432
     # Create a persistent volume within the container

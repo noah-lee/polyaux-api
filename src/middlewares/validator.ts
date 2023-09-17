@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import z, { AnyZodObject } from "zod";
+import z, { ZodTypeAny } from "zod";
 
 type Schemas = {
-  body?: AnyZodObject;
-  query?: AnyZodObject;
-  params?: AnyZodObject;
+  body?: ZodTypeAny;
+  query?: ZodTypeAny;
+  params?: ZodTypeAny;
 };
 
 const validator =

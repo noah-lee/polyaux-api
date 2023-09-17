@@ -1,7 +1,6 @@
 import "dotenv/config";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import UsersRepository from "@/api/v1/users/users.repository";
 
 const authenticate = async (
   req: Request,
@@ -9,16 +8,14 @@ const authenticate = async (
   next: NextFunction
 ) => {
   const accessToken = req.headers["authorization"]?.split(" ")[1];
-
-  if (!accessToken) {
-    throw new Error();
-  }
-
-  if (!process.env.JWT_SECRET) {
-    throw new Error();
-  }
-
   try {
+    if (!accessToken) {
+      throw new Error();
+    }
+
+    if (!process.env.JWT_SECRET) {
+      throw new Error();
+    }
     const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
 
     if (!decoded.sub || typeof decoded.sub !== "string") {
