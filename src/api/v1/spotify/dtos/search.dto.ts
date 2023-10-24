@@ -14,6 +14,7 @@ export const SearchQuerySchema = z.strictObject({
     ])
     .default("track"),
   limit: z.string().regex(/^\d+$/).transform(Number).optional(),
+  offset: z.string().regex(/^\d+$/).transform(Number).optional(),
 });
 
 export type SearchQueryDTO = z.infer<typeof SearchQuerySchema>;

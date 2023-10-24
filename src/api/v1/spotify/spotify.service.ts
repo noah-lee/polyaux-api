@@ -41,14 +41,9 @@ class SpotifyService {
   }
 
   authenticate = async () => {
+    console.log('SPOTIFY_CLIENT_ID', process.env.SPOTIFY_CLIENT_ID)
+    console.log('SPOTIFY_CLIENT_SECRET', process.env.SPOTIFY_CLIENT_SECRET)
     try {
-      if (
-        !process.env.SPOTIFY_CLIENT_ID ||
-        !process.env.SPOTIFY_CLIENT_SECRET
-      ) {
-        throw new Error();
-      }
-
       const response = await axios.post(
         "https://accounts.spotify.com/api/token",
         {

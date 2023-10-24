@@ -11,6 +11,7 @@ class AuthController {
   ) => {
     try {
       const accessToken = await AuthService.register(req.body);
+
       res.status(201).json({ accessToken });
     } catch (error) {
       next(error);
@@ -24,6 +25,7 @@ class AuthController {
   ) => {
     try {
       const accessToken = await AuthService.login(req.body);
+
       res.status(200).json({ accessToken });
     } catch (error) {
       next(error);

@@ -8,15 +8,13 @@ const authenticate = async (
   next: NextFunction
 ) => {
   const accessToken = req.headers["authorization"]?.split(" ")[1];
+
   try {
     if (!accessToken) {
       throw new Error();
     }
 
-    if (!process.env.JWT_SECRET) {
-      throw new Error();
-    }
-    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET!);
 
     if (!decoded.sub || typeof decoded.sub !== "string") {
       throw new Error();
